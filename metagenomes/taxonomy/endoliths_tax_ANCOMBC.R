@@ -86,3 +86,31 @@ res6_sig$Family=tax.u$Family[match(rownames(res6_sig),rownames(tax.u))]
 res6_sig$Domain=tax.u$Domain[match(rownames(res6_sig),rownames(tax.u))]
 message("Number of DA families: ", nrow(res6_sig), "\nNumber of DA families enriched in control: ", nrow(subset(res6_sig, Diff_more_abundant == "Control" )), "\nNumber of DA families enriched in heat: ", nrow(subset(res6_sig, Diff_more_abundant == "Heat" )))
 #write.table(res6_sig, "outputs/ANCOM-BC_Families_treatment_Gon_band", quote = F,  sep = "\t")
+
+
+#outputs for volcano plots
+
+vol_gon_band=res3_df[,c(1,3,4,5)]
+colnames(vol_gon_band)=c("Beta", "W", "pval",	"qval")
+vol_gon_band$Superkingdom=tax.u$Domain[match(rownames(vol_gon_band),rownames(tax.u))]
+vol_gon_band$Superkingdom=ifelse(vol_gon_band$qval > 0.05, "noDA", as.character(vol_gon_band$Superkingdom))
+write.table(vol_gon_band, "outputs/volcano_treatment_Gon_band", quote = F,  sep = "\t")
+
+vol_gon_skel=res4_df[,c(1,3,4,5)]
+colnames(vol_gon_skel)=c("Beta", "W", "pval",	"qval")
+vol_gon_skel$Superkingdom=tax.u$Domain[match(rownames(vol_gon_skel),rownames(tax.u))]
+vol_gon_skel$Superkingdom=ifelse(vol_gon_skel$qval > 0.05, "noDA", as.character(vol_gon_skel$Superkingdom))
+write.table(vol_gon_skel, "outputs/volcano_treatment_Gon_skel", quote = F,  sep = "\t")
+
+vol_por_band=res5_df[,c(1,3,4,5)]
+colnames(vol_por_band)=c("Beta", "W", "pval",	"qval")
+vol_por_band$Superkingdom=tax.u$Domain[match(rownames(vol_por_band),rownames(tax.u))]
+vol_por_band$Superkingdom=ifelse(vol_por_band$qval > 0.05, "noDA", as.character(vol_por_band$Superkingdom))
+write.table(vol_por_band, "outputs/volcano_treatment_Por_band", quote = F,  sep = "\t")
+
+vol_por_skel=res6_df[,c(1,3,4,5)]
+colnames(vol_por_skel)=c("Beta", "W", "pval",	"qval")
+vol_por_skel$Superkingdom=tax.u$Domain[match(rownames(vol_por_skel),rownames(tax.u))]
+vol_por_skel$Superkingdom=ifelse(vol_por_skel$qval > 0.05, "noDA", as.character(vol_por_skel$Superkingdom))
+write.table(vol_por_skel, "outputs/volcano_treatment_Por_skel", quote = F,  sep = "\t")
+
