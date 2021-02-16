@@ -1,20 +1,27 @@
 library(ggplot2)
 library(vegan)
 library(ggpubr)
+library(GUniFrac)
+library(lme4)
+library(emmeans)
 
 setwd("~/Documents/Bioinformatics_scripts/R_scripts/Coral_endoliths/metagenomes/taxonomy/")
 ############################################################
 ##################### alpha div ############################
 ############################################################
 map= read.table("~/Documents/Bioinformatics_scripts/R_scripts/Coral_endoliths/endoliths_metadata.txt", header = T, sep = "\t", row.names = 1)
-kai=read.table("Input_files/Families_counts", header = T, row.names = 1, quote = "", sep = "\t")
-kai.r=round(kai, digits = 0)#sweep(kai,2,colSums(kai),"/")
-#kai.r[ kai.r < 20] <- 0
+#kai=read.table("Input_files/Families_counts", header = T, row.names = 1, quote = "", sep = "\t")
+kai=read.table("Input_files/Families_counts_500", header = T, row.names = 1, quote = "", sep = "\t")
 
+###rarefying
+cnts=t(round(kai[, 1:48], digits = 0))
+min(rowSums(cnts)) # determine sample with lowest counts
+kai.r=t(Rarefy(cnts, 698219)$otu.tab.rff)
+
+#kai.r=kai
 P2=c("#8f2d56", "#218380")
-
 kai.a=as.data.frame(t(estimateR(t(kai.r))))
-kai.a$Shannon=diversity(kai.r, index = "shannon")$shannon
+kai.a$Shannon=diversity(t(kai.r), index = "shannon")
 kai.a$Species=map$Species[match(rownames(kai.a),rownames(map))]
 kai.a$Tissue=map$Tissue[match(rownames(kai.a),rownames(map))]
 kai.a$Treatment=map$Treatment[match(rownames(kai.a),rownames(map))]
@@ -26,15 +33,16 @@ kai.s=subset(kai.a, Treatment == "Control")
 ######################
 
 ### full model + temperature
-all_model=lmer(S.obs~Treatment*Species*Tissue + (1 |Genotype), data = kai.a)
-anova(all_model) 
+all_model=lmer(S.chao1~Species*Tissue*Treatment* + (1 |Genotype), data = kai.a)
+anova(all_model)
 
 #pairwise comaring  treatment per species and tissues
 all_pairs = emmeans(all_model, pairwise ~ Treatment|Species|Tissue, weights = "proportional", adjust="none")
 rbind(all_pairs$contrasts, adjust="fdr")
 
 ### full model = only controls
-all_model=lmer(S.obs~Species*Tissue + (1 |Genotype), data = kai.s)
+all_model=lmer(S.chao1~Species*Tissue + (1 |Genotype), data = kai.s)
+anova(all_model)
 
 #pairwise comaring Species
 all_pairs = emmeans(all_model, pairwise ~ Species|Tissue, weights = "proportional", adjust="none")
@@ -55,8 +63,7 @@ observed_plot=ggplot(data=kai.s, aes(x=Species, y=S.obs, fill=Species)) + scale_
 
 all_model=lmer(Shannon~Treatment*Species*Tissue + (1 |Genotype), data = kai.a)
 anova(all_model) 
-all_pairs = emmeans(all_model, pairwise ~ Treatment|Species|Tissue, weights = "proportional", adjust="none")
-rbind(all_pairs$contrasts, adjust="fdr")
+
 
 ### full model = only controls
 all_model=lmer(Shannon~Species*Tissue + (1 |Genotype), data = kai.s)
