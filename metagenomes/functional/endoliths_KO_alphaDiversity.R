@@ -10,12 +10,13 @@ setwd("~/Documents/Bioinformatics_scripts/R_scripts/Coral_endoliths/metagenomes/
 ##################### alpha div ############################
 ############################################################
 map= read.table("~/Documents/Bioinformatics_scripts/R_scripts/Coral_endoliths/endoliths_metadata.txt", header = T, sep = "\t", row.names = 1)
-kai=read.table("Input_files/KO_counts_500", header = T, row.names = 1, quote = "", sep = "\t")
+kai=read.table("Input_files/metabolic_KO_counts_500", header = T, row.names = 1, quote = "", sep = "\t")
 
 ###rarefying
 cnts=t(round(kai[, 1:48], digits = 0))
 min(rowSums(cnts)) # determine sample with lowest counts
-kai.r=t(Rarefy(cnts, 292685)$otu.tab.rff)
+#kai.r=t(Rarefy(cnts, 698219)$otu.tab.rff) #all kos
+kai.r=t(Rarefy(cnts, 45369)$otu.tab.rff) #metabolims 
 
 P2=c("#8f2d56", "#218380")
 
@@ -153,6 +154,9 @@ rbind(all_pairs$contrasts, adjust="fdr")
 #pairwise comaring Tissues
 all_pairs = emmeans(all_model, pairwise ~ Tissue|Species, weights = "proportional", adjust="fdr")
 rbind(all_pairs$contrasts, adjust="fdr")
+
+
+
 
 ##### N metabolism
 N_all=subset(kai.r, rownames(kai.r) %in% Nkos$V2)
