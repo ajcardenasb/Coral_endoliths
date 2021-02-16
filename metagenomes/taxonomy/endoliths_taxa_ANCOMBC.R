@@ -63,7 +63,7 @@ res4_sig$Diff_more_abundant=ifelse( res4_sig$Effect_size_W < 0 , "Control", "Hea
 res4_sig$Family=tax.u$Family[match(rownames(res4_sig),rownames(tax.u))]
 res4_sig$Domain=tax.u$Domain[match(rownames(res4_sig),rownames(tax.u))]
 message("Number of DA families: ", nrow(res4_sig), "\nNumber of DA families enriched in control: ", nrow(subset(res4_sig, Diff_more_abundant == "Control" )), "\nNumber of DA families enriched in heat: ", nrow(subset(res4_sig, Diff_more_abundant == "Heat" )))
-#write.table(res4_sig, "outputs/ANCOM-BC_Families_treatment_Gon_band", quote = F,  sep = "\t")
+#write.table(res4_sig, "outputs/ANCOM-BC_Families_treatment_Gon_skel", quote = F,  sep = "\t")
 
 por_band_phy=subset_samples(phy.all.fams, Species == "Porites" & Tissue == "Endolithic band")
 res5=ancombc(phyloseq=por_band_phy,formula="Treatment",p_adj_method = "fdr",zero_cut = 0.9,lib_cut=1000,group = "Treatment",struc_zero =TRUE,neg_lb = FALSE,tol = 1e-05,max_iter = 100,conserve = F,alpha = 0.05,global = TRUE)
@@ -74,7 +74,7 @@ res5_sig$Diff_more_abundant=ifelse( res5_sig$Effect_size_W < 0 , "Control", "Hea
 res5_sig$Family=tax.u$Family[match(rownames(res5_sig),rownames(tax.u))]
 res5_sig$Domain=tax.u$Domain[match(rownames(res5_sig),rownames(tax.u))]
 message("Number of DA families: ", nrow(res5_sig), "\nNumber of DA families enriched in control: ", nrow(subset(res5_sig, Diff_more_abundant == "Control" )), "\nNumber of DA families enriched in heat: ", nrow(subset(res5_sig, Diff_more_abundant == "Heat" )))
-#write.table(res5_sig, "outputs/ANCOM-BC_Families_treatment_Gon_band", quote = F,  sep = "\t")
+#write.table(res5_sig, "outputs/ANCOM-BC_Families_treatment_Por_band", quote = F,  sep = "\t")
 
 por_skel_phy=subset_samples(phy.all.fams, Species == "Porites" & Tissue == "Skeleton")
 res6=ancombc(phyloseq=por_skel_phy,formula="Treatment",p_adj_method = "fdr",zero_cut = 0.9,lib_cut=1000,group = "Treatment",struc_zero =TRUE,neg_lb = FALSE,tol = 1e-05,max_iter = 100,conserve = F,alpha = 0.05,global = TRUE)
@@ -85,7 +85,7 @@ res6_sig$Diff_more_abundant=ifelse( res6_sig$Effect_size_W < 0 , "Control", "Hea
 res6_sig$Family=tax.u$Family[match(rownames(res6_sig),rownames(tax.u))]
 res6_sig$Domain=tax.u$Domain[match(rownames(res6_sig),rownames(tax.u))]
 message("Number of DA families: ", nrow(res6_sig), "\nNumber of DA families enriched in control: ", nrow(subset(res6_sig, Diff_more_abundant == "Control" )), "\nNumber of DA families enriched in heat: ", nrow(subset(res6_sig, Diff_more_abundant == "Heat" )))
-#write.table(res6_sig, "outputs/ANCOM-BC_Families_treatment_Gon_band", quote = F,  sep = "\t")
+#write.table(res6_sig, "outputs/ANCOM-BC_Families_treatment_Por_skel", quote = F,  sep = "\t")
 
 
 #outputs for volcano plots
@@ -94,23 +94,23 @@ vol_gon_band=res3_df[,c(1,3,4,5)]
 colnames(vol_gon_band)=c("Beta", "W", "pval",	"qval")
 vol_gon_band$Superkingdom=tax.u$Domain[match(rownames(vol_gon_band),rownames(tax.u))]
 vol_gon_band$Superkingdom=ifelse(vol_gon_band$qval > 0.05, "noDA", as.character(vol_gon_band$Superkingdom))
-write.table(vol_gon_band, "outputs/volcano_treatment_Gon_band", quote = F,  sep = "\t")
+#write.table(vol_gon_band, "outputs/volcano_treatment_Gon_band", quote = F,  sep = "\t")
 
 vol_gon_skel=res4_df[,c(1,3,4,5)]
 colnames(vol_gon_skel)=c("Beta", "W", "pval",	"qval")
 vol_gon_skel$Superkingdom=tax.u$Domain[match(rownames(vol_gon_skel),rownames(tax.u))]
 vol_gon_skel$Superkingdom=ifelse(vol_gon_skel$qval > 0.05, "noDA", as.character(vol_gon_skel$Superkingdom))
-write.table(vol_gon_skel, "outputs/volcano_treatment_Gon_skel", quote = F,  sep = "\t")
+#write.table(vol_gon_skel, "outputs/volcano_treatment_Gon_skel", quote = F,  sep = "\t")
 
 vol_por_band=res5_df[,c(1,3,4,5)]
 colnames(vol_por_band)=c("Beta", "W", "pval",	"qval")
 vol_por_band$Superkingdom=tax.u$Domain[match(rownames(vol_por_band),rownames(tax.u))]
 vol_por_band$Superkingdom=ifelse(vol_por_band$qval > 0.05, "noDA", as.character(vol_por_band$Superkingdom))
-write.table(vol_por_band, "outputs/volcano_treatment_Por_band", quote = F,  sep = "\t")
+#write.table(vol_por_band, "outputs/volcano_treatment_Por_band", quote = F,  sep = "\t")
 
 vol_por_skel=res6_df[,c(1,3,4,5)]
 colnames(vol_por_skel)=c("Beta", "W", "pval",	"qval")
 vol_por_skel$Superkingdom=tax.u$Domain[match(rownames(vol_por_skel),rownames(tax.u))]
 vol_por_skel$Superkingdom=ifelse(vol_por_skel$qval > 0.05, "noDA", as.character(vol_por_skel$Superkingdom))
-write.table(vol_por_skel, "outputs/volcano_treatment_Por_skel", quote = F,  sep = "\t")
+#write.table(vol_por_skel, "outputs/volcano_treatment_Por_skel", quote = F,  sep = "\t")
 
