@@ -73,6 +73,11 @@ rbind(all_pairs$contrasts, adjust="fdr")
 all_pairs = emmeans(all_model, pairwise ~ Tissue|Species, weights = "proportional", adjust="none")
 rbind(all_pairs$contrasts, adjust="fdr")
 
+# comparing treatments
+all_model=lmer(Shannon~Treatment*Species*Tissue + (1 |Genotype), data = kai.a)
+all_pairs = emmeans(all_model, pairwise ~ Treatment|Species|Tissue, weights = "proportional", adjust="none")
+rbind(all_pairs$contrasts, adjust="fdr")
+
 #shannon_plot=ggplot(data=kai.s, aes(x=Species, y=Shannon, fill=Species)) + scale_fill_manual(values = c ("#8f2d56", "#218380"), name = "Species") + stat_boxplot(geom ='errorbar', width = 0.7, lwd=0.5)+  geom_boxplot(width=0.7, lwd=0.5, fatten=1) + facet_grid(~Tissue, space = "free", scales = "free") +  theme_bw()   + labs(y = "KEGG orthologs Shannon diversity", x = "")  + theme( axis.line = element_line(colour = "grey20"), axis.ticks.length = unit(0.2 , "cm"), legend.position="none",  panel.spacing = unit(1, "lines"), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), strip.background = element_blank(),strip.text.x = element_text(color = "grey20", size = 12, angle = 0, hjust = 0, vjust = 0.5, face = "bold"), axis.text.x = element_text(color = "grey20", size = 8, angle = 0, hjust = .5, vjust = .5, face = "bold") ) #+ theme_classic2()
 shannon_plot=ggplot(data=kai.a, aes(x=Treatment, y=Shannon, fill=Treatment)) + scale_fill_manual(values = c ("#247BA0", "#ffe066"), name = "Species") + stat_boxplot(geom ='errorbar', width = 0.7, lwd=0.5)+  geom_boxplot(width=0.7, lwd=0.5, fatten=1) + facet_grid(~Species+Tissue, space = "free", scales = "free") +  theme_bw()   + labs(y = "KEGG orthologs Shannon diversity", x = "")  + theme( axis.line = element_line(colour = "grey20"), axis.ticks.length = unit(0.2 , "cm"), legend.position="none",  panel.spacing = unit(0, "lines"), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), strip.background = element_blank(),strip.text.x = element_text(color = "grey20", size = 12, angle = 0, hjust = 0, vjust = 0.5, face = "bold"), axis.text.x = element_text(color = "grey20", size = 8, angle = 0, hjust = .5, vjust = .5, face = "bold") )# + theme_classic2()
 
