@@ -17,7 +17,7 @@
 3. Create KO and KEGG module count matrix removing contigs < 250 bp 'ORF250_to_taxa&KOs.R'
 
 # community-based metagenomic taxonomic profiles
-5. ORF-based taxonomic annotation was done using [kaiju]() as described in 'metaG_community_taxonomy.sh'
+5. ORF-based taxonomic annotation was done using [kaiju](https://github.com/bioinformatics-centre/kaiju) as described in 'metaG_community_taxonomy.sh'
 6. Relative abundance of top families per superkingdom were plotted using  'Barplots_topFamilies.R'
 7. Ordination plots of all families were done using 'All_families_ordination_plots.R'
 8. Differentially abundant families were determined by ANCOM-BC using the scripts '/metagenomes/taxonomy/ANCOMBC_tax.R'
