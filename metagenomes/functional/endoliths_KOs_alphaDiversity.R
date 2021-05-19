@@ -12,7 +12,7 @@ kai.r=round(kai, digits = 0)#sweep(kai,2,colSums(kai),"/")
 kai.r[ kai.r < 20] <- 0
 ##rarefying
 cnts=t(kai.r[, 1:48])
-min_val=min(rowSums(cnts))
+min_val=min(rowSums(cnts)) # 686534
 kai.rar=Rarefy(cnts, min_val)$otu.tab.rff
 
 P2=c("#8f2d56", "#218380")
