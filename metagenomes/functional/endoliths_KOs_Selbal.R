@@ -1,7 +1,7 @@
 #library(selbal)
 setwd("~/Documents/Bioinformatics_scripts/R_scripts/Coral_endoliths/metagenomes/functional/")
 source("~/Documents/Bioinformatics_scripts/R_scripts/orphan/remove_rare.R")
-source("~/Documents/Bioinformatics_scripts/R_scripts/orphan/selbal_fixed.R")
+library("selbal")
 
 ancom_band=read.table("~/Documents/Bioinformatics_scripts/R_scripts/Coral_endoliths/metagenomes/functional/outputs/ANCOMBC_L3_betweenSpecies_band.txt", header = T, sep = "\t", row.names = 1)
 ancom_skel=read.table("~/Documents/Bioinformatics_scripts/R_scripts/Coral_endoliths/metagenomes/functional/outputs/ANCOMBC_L3_betweenSpecies_skel.txt", header = T, sep = "\t", row.names = 1)
