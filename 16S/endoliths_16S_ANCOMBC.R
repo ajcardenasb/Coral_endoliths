@@ -1,4 +1,5 @@
 library(phyloseq)
+library(ANCOMBC)
 library(ggplot2)
 library(plyr)
 library(gridExtra)
@@ -69,7 +70,7 @@ res4_sig$Family=asv$Family[match(rownames(res4_sig),rownames(asv))]
 res4_sig$Order=asv$Order[match(rownames(res4_sig),rownames(asv))]
 res4_sig$Class=asv$Class[match(rownames(res4_sig),rownames(asv))]
 message("Number of DA families: ", nrow(res4_sig), "\nNumber of DA families enriched in control: ", nrow(subset(res4_sig, Diff_more_abundant == "Control" )), "\nNumber of DA families enriched in heat: ", nrow(subset(res4_sig, Diff_more_abundant == "Heat" )))
-write.table(res4_sig, "outputs/ANCOM-BC_ASV_treatment_Gon_band", quote = F,  sep = "\t")
+write.table(res4_sig, "outputs/ANCOM-BC_ASV_treatment_Gon_skel", quote = F,  sep = "\t")
 
 por_band_phy=subset_samples(phy.all, Species == "Porites" & Tissue == "Endolithic band")
 res5=ancombc(phyloseq=por_band_phy,formula="Treatment",p_adj_method = "fdr",zero_cut = 0.9,lib_cut=1000,group = "Treatment",struc_zero =TRUE,neg_lb = FALSE,tol = 1e-05,max_iter = 100,conserve = F,alpha = 0.05,global = TRUE)
@@ -81,7 +82,7 @@ res5_sig$Family=asv$Family[match(rownames(res5_sig),rownames(asv))]
 res5_sig$Order=asv$Order[match(rownames(res5_sig),rownames(asv))]
 res5_sig$Class=asv$Class[match(rownames(res5_sig),rownames(asv))]
 message("Number of DA families: ", nrow(res5_sig), "\nNumber of DA families enriched in control: ", nrow(subset(res5_sig, Diff_more_abundant == "Control" )), "\nNumber of DA families enriched in heat: ", nrow(subset(res5_sig, Diff_more_abundant == "Heat" )))
-write.table(res5_sig, "outputs/ANCOM-BC_ASV_treatment_Gon_band", quote = F,  sep = "\t")
+write.table(res5_sig, "outputs/ANCOM-BC_ASV_treatment_Por_band", quote = F,  sep = "\t")
 
 por_skel_phy=subset_samples(phy.all, Species == "Porites" & Tissue == "White band")
 res6=ancombc(phyloseq=por_skel_phy,formula="Treatment",p_adj_method = "fdr",zero_cut = 0.9,lib_cut=1000,group = "Treatment",struc_zero =TRUE,neg_lb = FALSE,tol = 1e-05,max_iter = 100,conserve = F,alpha = 0.05,global = TRUE)
@@ -93,4 +94,4 @@ res6_sig$Family=asv$Family[match(rownames(res6_sig),rownames(asv))]
 res6_sig$Order=asv$Order[match(rownames(res6_sig),rownames(asv))]
 res6_sig$Class=asv$Class[match(rownames(res6_sig),rownames(asv))]
 message("Number of DA families: ", nrow(res6_sig), "\nNumber of DA families enriched in control: ", nrow(subset(res6_sig, Diff_more_abundant == "Control" )), "\nNumber of DA families enriched in heat: ", nrow(subset(res6_sig, Diff_more_abundant == "Heat" )))
-write.table(res6_sig, "outputs/ANCOM-BC_ASV_treatment_Gon_band", quote = F,  sep = "\t")
+write.table(res6_sig, "outputs/ANCOM-BC_ASV_treatment_Por_skel", quote = F,  sep = "\t")
