@@ -121,4 +121,3 @@ asv.final=asv.3[order(-asv.3$sum),]
 rownames(asv.final) = sprintf("ASV%04d", 1:nrow(asv.final))
 write.table(asv.final, "coral_endoliths_ASV_table.txt",  quote = FALSE)
 write.table(track, "coral_endoliths_ASV_stats.txt", quote = FALSE)
-
