@@ -49,3 +49,4 @@ dev.off()
 # pdf("./outputs/mean_barplots_Goniastrea_16S.pdf",  width = 7, height =7, pointsize = 12) 
 # ggplot() +geom_bar(aes(y = Abundance, x = Species, fill = Family), data = final, stat="identity", position = "fill") +  theme(axis.text.x=element_text(angle=90,hjust=1)) + labs( y= "Percentage of 16S rRNA sequences", x="Host colony") + scale_fill_manual(values=P21) + facet_grid(~Tissue) + theme( legend.key.size = unit(0.2, "cm"),legend.key.width = unit(0.2,"cm"), legend.position = 'bottom') +  theme_classic() + guides(fill=guide_legend(ncol=1))
 # dev.off() 
+
