@@ -34,4 +34,3 @@ colnames(otu.noConta)
 otu.noConta.f=merge(otu.noConta, tax, by="row.names")
 write.table(otu.noConta.f, "./outputs/ASVs_noContanoOut.raw.txt",  quote = FALSE, row.names=F, sep = "\t") #define sample range
 message("Number of ASVs used in the analysis: ", length(rownames(otu.noConta.f)))
-
