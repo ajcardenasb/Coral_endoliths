@@ -57,4 +57,3 @@ vennPor=venn.diagram(list(list_metag_por, list_asvs_por), NULL, category.names =
 pdf("./outputs/Observed_families_16SvsMetaG_vennDiagrams.pdf", width=4,height=6, pointsize = 20)
 grid.arrange(grobTree(vennGon), grobTree(vennPor),  ncol = 1, nrow = 2)
 dev.off()
-
