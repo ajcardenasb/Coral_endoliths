@@ -55,28 +55,37 @@ write.table(asv_adonis_df, "outputs/endoliths_overal_adonis_ASVs.txt", sep = "\t
 asv.n$groups=paste(asv.n$species, asv.n$tissue, sep = "-")
 controls=subset(asv.n,  treatment == "Control") 
 species_pairWadonis_df=pairwise.adonis(controls[,1:6491], controls$groups,  sim.method = "bray", p.adjust.m = "fdr", perm = 999) # 0.6666667
-write.table(species_pairWadonis_df, "outputs/endoliths_pairwiseAdonis_speceis_ASVs.txt", sep = "\t", row.names = F, quote = F)
+#write.table(species_pairWadonis_df, "outputs/endoliths_pairwiseAdonis_speceis_ASVs.txt", sep = "\t", row.names = F, quote = F)
+
+#comparing compartments within species 
+asv.n$groups=paste(asv.n$species, asv.n$tissue, sep = "-")
+controls=subset(asv.n,  treatment == "Control") 
+pairwise.adonis(controls[,1:6491], controls$groups,  sim.method = "bray", p.adjust.m = "fdr", perm = 999) # 0.6666667
 
 
-#comparing treatment in tissue pools
+#comparing treatment in whithin-species pools
 
-tiss.G=subset(asv.n, species == "Goniastrea"  & treatment == "Control" & tissue =="Tissue") 
-adonis(tiss.G[,1:6491]~ tiss.G$species) # 0.6666667
+asv.n$groups=paste(asv.n$species, asv.n$tissue, asv.n$treatment, sep = "-")
+pairwise.adonis(asv.n[,1:6491], asv.n$groups,  sim.method = "bray", p.adjust.m = "fdr", perm = 999) # 0.6666667
 
-gree.G=subset(asv.n, species == "Goniastrea"  & treatment == "Control" & tissue =="Green band") 
+
+tiss.G=subset(asv.n, species == "Goniastrea" & tissue =="Tissue") 
+adonis(tiss.G[,1:6491]~ tiss.G$treatment) # 0.6666667
+
+gree.G=subset(asv.n, species == "Goniastrea"  & tissue =="Endolithic band") 
 adonis(gree.G[,1:6491]~ gree.G$treatment) # 0.675 
 
-whit.G=subset(asv.n, species == "Goniastrea"  & treatment == "Control" & tissue =="White band") 
+whit.G=subset(asv.n, species == "Goniastrea" & tissue =="White band") 
 adonis(whit.G[,1:6491]~whit.G$treatment) # 0.903
 
-tiss.P=subset(asv.n, species == "Porites"  &   tissue =="Tissue" & treatment == "Control") 
+tiss.P=subset(asv.n, species == "Porites"  &   tissue =="Tissue" ) 
 adonis(tiss.P[,1:6491]~ tiss.P$treatment ) # 0.756 
 
-gree.P=subset(asv.n, species == "Porites"  & tissue =="Green band" & treatment == "Control") 
-adonis(gree.P[,1:6495]~ gree.P$treatment) # 0.945  
+gree.P=subset(asv.n, species == "Porites"  & tissue =="Endolithic band" ) 
+adonis(gree.P[,1:6491]~ gree.P$treatment) # 0.945  
 
-whit.P=subset(asv.n, species == "Porites"  &  tissue =="White band" & treatment == "Control") 
-adonis(whit.P[,1:6495]~ whit.P$treatment ) # 0.952
+whit.P=subset(asv.n, species == "Porites"  &  tissue =="White band" ) 
+adonis(whit.P[,1:6491]~ whit.P$treatment ) # 0.952
 
 
 #comparing tissues from controls
@@ -86,4 +95,3 @@ pairwiseAdonis::pairwise.adonis(por[,1:6491], por$tissue,  sim.method = 'bray', 
 
 gon=subset(asv.n, species == "Goniastrea" & treatment =="Control")
 pairwiseAdonis::pairwise.adonis(gon[,1:6491], gon$tissue,  sim.method = 'bray', p.adjust.m ='fdr',perm=999) # 0.6666667
-
