@@ -6,7 +6,7 @@ Raw sequencing data are deposited in the NCBI Sequence Read Archive (SRA) under 
 
 ## Workflow
 
-### Metabaracoding - 16S rRNA data analysis
+### Metabarcoding - 16S rRNA data analysis
 1. Amplicon Sequence variance (ASV) were inferred using [dada2](https://github.com/benjjneb/dada2) using the script `/16S/endoliths_16S_dada2.R`
 2. Quality checks (i.e., removal of putatively contaminant ASVs and removal of samples with < 1000 reads) were done using the script `/16S/endoliths_16S_contaRemoval.R`
 3. Bar plots of most abundant bacterial taxa were created using the script`/16S/endoliths_16S_barplots.R`
