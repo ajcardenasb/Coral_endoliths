@@ -1,14 +1,14 @@
 # Repository - Coral endoliths
 
-This repository contains the scripts used to analyze data and create figures for the manuscript "Greater functional diversity and redundancy of coral endolithic microbiomes align with lower coral bleaching susceptibility" 
+This repository contains the scripts used to analyze data and create figures for the manuscript "Greater functional diversity and redundancy of coral endolithic microbiomes align with lower coral bleaching susceptibility"
 
 Raw sequencing data are deposited in the NCBI Sequence Read Archive (SRA) under BioProject [PRJNA757245](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA757245)
 
 ## Workflow
 
-### 16S analysis
-1. Amplicon Sequence variance (ASV) were inferred using [dada2](https://github.com/benjjneb/dada2) using the script `/16S/endoliths_16S_dada2.R` 
-2. Quality checks (i.e., removal of putatively contaminant ASVs and removal of samples with < 1000 reads) were done using the script `/16S/endoliths_16S_contaRemoval.R` 
+### Metabaracoding - 16S rRNA data analysis
+1. Amplicon Sequence variance (ASV) were inferred using [dada2](https://github.com/benjjneb/dada2) using the script `/16S/endoliths_16S_dada2.R`
+2. Quality checks (i.e., removal of putatively contaminant ASVs and removal of samples with < 1000 reads) were done using the script `/16S/endoliths_16S_contaRemoval.R`
 3. Bar plots of most abundant bacterial taxa were created using the script`/16S/endoliths_16S_barplots.R`
 4. Ordination plots and PERMANOVAs were done using [Vegan](https://github.com/vegandevs/vegan) with the script `/16S/endoliths_16S_ordination_permanovas.R`
 5. Alpha diversity estimates and statistical comparisons were done using [Vegan](https://github.com/vegandevs/vegan) following the script `/16S/endoliths_16S_alphaDiversity.R`
@@ -18,9 +18,9 @@ Raw sequencing data are deposited in the NCBI Sequence Read Archive (SRA) under 
 
 ### Metagenomics
 
-#### gene-centric approaches
-1. Assembly, ORF prediction and estimation of gene counts were done using the script 'metaG_binning.sh'
-2. Assess contig length cutoffs to keep for downstream analysis 'ORFs_master_to_taxa_KOs' and 'Mapping_contigLength_Profiles'
+#### Assembly, ORF prediction, gene quantification and annotation.
+1. Assembly, ORF prediction and estimation of gene counts were done using the script `endoliths_metaG_assembly.sh`
+2. Assess contig length cutoffs to keep for downstream analysis 'ORFs_master_to_taxa_KOs' and `Mapping_contigLength_Profiles`
 3. Create KO and KEGG module count matrix removing contigs < 250 bp 'ORF250_to_taxa&KOs.R'
 
 #### community-based metagenomic taxonomic profiles
