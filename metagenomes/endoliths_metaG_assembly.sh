@@ -24,7 +24,6 @@ cat /home/cardena/projects/endoliths/metaGs/trimmed/*1P.fastq > all_1P.fastq
 cat /home/cardena/projects/endoliths/metaGs/trimmed/*2P.fastq > all_2P.fastq
 spades.py -1 all_1P.fastq  -2 all_2P.fastq -k 127 -t 64 -m 900 -o spades_assembly --meta
 
-#Spades assembly failed error code 255
 #check if they have the same pairs
 head -1051 FRIDec16A_C10_decon_R1.fastq >test_R1.fastq
 head -1076 FRIDec16A_C10_decon_R2.fastq >test_R2.fastq
@@ -49,15 +48,7 @@ for i in /home/cardena/projects/endoliths/metaGs/trimmed/GC[1234][BS]_merged.fas
 cat *_IDBA_input.fasta > IDBA_input.fasta
 idba_ud -r IDBA_input.fasta --mink 80 --maxk 140 --num_threads 64 -o assembly_idba_ut
 ##146581.pts-9.zygote
-m_threads 64 -o assembly_idba_ut
-number of threads 64
 
-reads 2,190,124,857
-long reads 0
-extra reads 0
-
-read_length 151
-kmer 80
 
 #Quast
 export PATH="/home/cardena/miniconda3/bin:$PATH"
