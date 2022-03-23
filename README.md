@@ -6,7 +6,7 @@ Raw sequencing data are deposited in the NCBI Sequence Read Archive (SRA) under 
 
 ## Workflow
 
-### Metabarcoding - 16S rRNA data analysis
+### Metabaracoding - 16S rRNA data analysis
 1. Amplicon Sequence variance (ASV) were inferred using [dada2](https://github.com/benjjneb/dada2) using the script `/16S/endoliths_16S_dada2.R`
 2. Quality checks (i.e., removal of putatively contaminant ASVs and removal of samples with < 1000 reads) were done using the script `/16S/endoliths_16S_contaRemoval.R`
 3. Bar plots of most abundant bacterial taxa were created using the script`/16S/endoliths_16S_barplots.R`
@@ -19,9 +19,9 @@ Raw sequencing data are deposited in the NCBI Sequence Read Archive (SRA) under 
 ### Metagenomics
 
 #### Assembly, ORF prediction, gene quantification and annotation.
-1. Assembly, ORF prediction and estimation of gene counts were done using the script `endoliths_metaG_assembly.sh`
-2. Assess contig length cutoffs to keep for downstream analysis 'ORFs_master_to_taxa_KOs' and `Mapping_contigLength_Profiles`
-3. Create KO and KEGG module count matrix removing contigs < 250 bp 'ORF250_to_taxa&KOs.R'
+1. Assembly, ORF prediction and estimation of gene counts were done using the script `/metagenomes/endoliths_metaG_assembly.sh`
+2. Assess contig length cutoffs to keep for downstream analysis 'ORFs_master_to_taxa_KOs' and `/metagenomes/Mapping_contigLength_Profiles.R`
+3. Create KO and KEGG module count matrix removing contigs < 500 bp `/metagenomes/ORF500_to_taxa&KOs.R`
 
 #### community-based metagenomic taxonomic profiles
 5. ORF-based taxonomic annotation was done using [kaiju](https://github.com/bioinformatics-centre/kaiju) as described in 'metaG_community_taxonomy.sh'
