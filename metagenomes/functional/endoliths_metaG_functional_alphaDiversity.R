@@ -7,12 +7,12 @@ setwd("~/Documents/Bioinformatics_scripts/R_scripts/Coral_endoliths/metagenomes/
 ##################### alpha div ############################
 ############################################################
 map= read.table("~/Documents/Bioinformatics_scripts/R_scripts/Coral_endoliths/endoliths_metadata.txt", header = T, sep = "\t", row.names = 1)
-kai=read.table("Input_files/metabolic_Kos", header = T, row.names = 1, quote = "", sep = "\t")
+kai=read.table("Input_files/metabolic_KO_counts_500", header = T, row.names = 1, quote = "", sep = "\t")
 kai.r=round(kai, digits = 0)#sweep(kai,2,colSums(kai),"/")
 kai.r[ kai.r < 20] <- 0
 ##rarefying
 cnts=t(kai.r[, 1:48])
-min_val=min(rowSums(cnts)) # 686534
+min_val=min(rowSums(cnts)) #686534
 kai.rar=Rarefy(cnts, min_val)$otu.tab.rff
 
 P2=c("#8f2d56", "#218380")
