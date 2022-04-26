@@ -8,6 +8,7 @@ for i in GC[1234][BS]*1P.fastq*_R1_001.fastq.gz ; do java -jar /home/cardena/sof
 
 #renaming files
 for i in *P.fastq ; do mv $i $(basename $i | sed 's/M_19_1[12][0-9][0-9]_//' | sed 's/_[A-Z][0][0-9]_L00[1-7]//') ; done
+for i in *.fastq.gz ; do cp $i $(basename $i | sed 's/M_19_1[12][0-9][0-9]_//' | sed 's/_[A-Z][0][0-9]_L00[1-7]//' | sed 's/_001//' | sed 's/_R1/_1P/' | sed 's/_R2/_2P/')  ; done
 
 #################
 ### Assembly ###(middlechild)
@@ -24,6 +25,7 @@ cat /home/cardena/projects/endoliths/metaGs/trimmed/*1P.fastq > all_1P.fastq
 cat /home/cardena/projects/endoliths/metaGs/trimmed/*2P.fastq > all_2P.fastq
 spades.py -1 all_1P.fastq  -2 all_2P.fastq -k 127 -t 64 -m 900 -o spades_assembly --meta
 
+#Spades assembly failed error code 255
 #check if they have the same pairs
 head -1051 FRIDec16A_C10_decon_R1.fastq >test_R1.fastq
 head -1076 FRIDec16A_C10_decon_R2.fastq >test_R2.fastq
@@ -42,13 +44,16 @@ source activate idba
 for i in /home/cardena/projects/endoliths/metaGs/trimmed/*1P.fastq; do fq2fa --merge $i ${i//1P.fastq/2P.fastq} $(basename $i | sed 's/1P.fastq/_IDBA_input.fasta/g')  ; done
 for i in /home/cardena/projects/endoliths/metaGs/trimmed/GC[1234][BS]_merged.fastq.extendedFrags.fastq ; do fq2fa  $i  $(basename $i | sed 's/merged.fastq.extendedFrags.fastq/_IDBA_input.fasta/g')  ; done
 
-#9755824651 Mär 24 10:52 GC4S__IDBA_input.fasta
-#48959018 reads
-
 cat *_IDBA_input.fasta > IDBA_input.fasta
 idba_ud -r IDBA_input.fasta --mink 80 --maxk 140 --num_threads 64 -o assembly_idba_ut
-##146581.pts-9.zygote
 
+#m_threads 64 -o assembly_idba_ut
+#number of threads 64
+#reads 2,190,124,857
+#long reads 0
+#extra reads 0
+#read_length 151
+#kmer 80
 
 #Quast
 export PATH="/home/cardena/miniconda3/bin:$PATH"
