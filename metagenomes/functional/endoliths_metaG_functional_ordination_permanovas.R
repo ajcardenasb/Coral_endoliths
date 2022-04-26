@@ -92,11 +92,10 @@ temp=as.data.frame(ado$aov.tab)
 #species and compartments
 met_controls=subset(met_kos_df, treatment == "Control")
 met_controls$group2=paste(met_controls$species, met_controls$tissue, sep = "_")
-pairwise.adonis(met_controls[,1:3974],met_controls$group2, sim.method = "euclidean")
+pairwise.adonis(met_controls[,1:3975],met_controls$group2, sim.method = "euclidean")
 
 #treatments
 met_gon=subset(met_kos_df,  species == "Goniastrea")
 pairwise.adonis(met_gon[,1:3975],met_gon$group, sim.method = "euclidean")
 met_por=subset(met_kos_df,  species == "Porites")
 pairwise.adonis(met_por[,1:3975],met_por$group, sim.method = "euclidean")
-
