@@ -45,20 +45,8 @@ source activate bioawk
 bioawk -c fasta '{ print $name, length($seq) }' < ~/projects/endoliths/metaGs/community_analyses/functional_profiles/prodigal/endoliths.assembly.fna > endolits_contig_length
 
 
-### bin ORFs into KOs
-Rscript  ~/scripts/ORFs2modules.R ~/projects/endoliths/metaGs/community_analyses/functional_profiles/mapping2faa/endoliths_allContigs_counts_table ~/projects/endoliths/metaGs/community_analyses/functional_profiles/mapping2faa/endoliths_allContigs_TPM_table endoliths_fullKEGG_annotations_allContigs
-## get all KOs for C and N metabolism
-wget  http://rest.kegg.jp/link/ko/map01120  -O map01200
-cat map01200 | cut -f2 | sed 's/ko://' > KOs_map01200
-wget http://rest.kegg.jp/link/ko/map00910 -O map00910
-cat map00910 | cut -f2 | sed 's/ko://' > KOs_map00910
-### bin ORFs into  C and N KOs
-Rscript  ~/scripts/ORFs2CNKOs.R ~/projects/endoliths/metaGs/community_analyses/functional_profiles/mapping2faa/endoliths_allContigs_counts_table endoliths_fullKEGG_annotations_allContigs
-### bin ORFs into kegg pathways
-Rscript ~/scripts/ORFs2pathways.R  ~/projects/endoliths/metaGs/community_analyses/functional_profiles/mapping2faa/endoliths_allContigs_counts_table endoliths_fullKEGG_annotations_allContigs
-### bin ORFs into metabolims KOs
-Rscript ~/scripts/ORFs2metabolKOs.R ~/projects/endoliths/metaGs/community_analyses/functional_profiles/mapping2faa/endoliths_allContigs_counts_table endoliths_fullKEGG_annotations_allContigs ~/projects/endoliths/metaGs/community_analyses/functional_profiles/mapping2faa/endoliths_allContigs_counts_table
-
+### bin ORFs into KOs and taxonomic categories
+Rscript  ~/scripts/ORF500_to_taxa&KOs.R ~/projects/endoliths/metaGs/community_analyses/functional_profiles/mapping2faa/endoliths_allContigs_counts_table ~/projects/endoliths/metaGs/community_analyses/functional_profiles/mapping2faa/endoliths_allContigs_TPM_table endoliths_fullKEGG_annotations_allContigs
 
 
 ####################
